@@ -1,36 +1,55 @@
-import { FileEntry } from "@/types/FileEntry.interface";
+import { Lock } from "lucide-react";
 
-import { FileListItem } from "./FileListItem";
+import { UploadFile } from "@/types/UploadFile.interface";
+
+import { FileCard } from "./FileCard";
 import { FileTable } from "./FileTable";
 
 interface Props {
-  files: FileEntry[];
+  files: UploadFile[];
   onDelete: (id: string) => void;
+  onCancel: (id: string) => void;
+  onRetry: (id: string) => void;
   onTagChange: (id: string, tag: string) => void;
 }
 
-export const FileList = ({ files, onDelete, onTagChange }: Props) => {
+export const FileList = ({
+  files,
+  onDelete,
+  onCancel,
+  onRetry,
+  onTagChange,
+}: Props) => {
   if (files.length === 0) {
     return (
-      <div className="bg-white border border-gray-200 rounded-b-md py-8 text-center text-gray-400 text-sm">
-        Aún no se han cargado archivos.
+      <div className="bg-white border border-gray-200 rounded-md py-10 flex flex-col items-center gap-2 text-gray-400">
+        <Lock size={28} strokeWidth={1.5} />
+        <p className="text-sm">No se han cargado archivos</p>
       </div>
     );
   }
 
   return (
     <>
-      <div className="md:hidden bg-white border border-gray-200 rounded-b-md divide-y divide-gray-100">
+      <div className="md:hidden bg-white border border-gray-200 rounded-md divide-y divide-gray-100">
         {files.map((file) => (
-          <FileListItem
+          <FileCard
             key={file.id}
             file={file}
             onDelete={onDelete}
+            onCancel={onCancel}
+            onRetry={onRetry}
             onTagChange={onTagChange}
           />
         ))}
       </div>
-      <FileTable files={files} onDelete={onDelete} onTagChange={onTagChange} />
+      <FileTable
+        files={files}
+        onDelete={onDelete}
+        onCancel={onCancel}
+        onRetry={onRetry}
+        onTagChange={onTagChange}
+      />
     </>
   );
 };

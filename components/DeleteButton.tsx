@@ -1,18 +1,25 @@
 import { Trash2 } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
+
 interface Props {
   onClick: () => void;
+  ariaLabel?: string;
   className?: string;
 }
 
-export const DeleteButton = ({ onClick, className }: Props) => {
+export const DeleteButton = ({ onClick, ariaLabel, className }: Props) => {
   return (
-    <button
+    <Button
+      type="button"
+      variant="destructive"
+      size="icon-sm"
       onClick={onClick}
       title="Eliminar"
-      className={`p-1.5 rounded bg-red-500 hover:bg-red-600 text-white transition-colors ${className ?? ""}`}
+      aria-label={ariaLabel ?? "Eliminar archivo"}
+      className={className}
     >
-      <Trash2 size={13} />
-    </button>
+      <Trash2 />
+    </Button>
   );
 };

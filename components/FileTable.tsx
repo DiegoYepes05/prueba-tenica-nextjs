@@ -1,10 +1,12 @@
-import { FileEntry } from "@/types/FileEntry.interface";
+import { UploadFile } from "@/types/UploadFile.interface";
 
 import { FileTableRow } from "./FileTableRow";
 
 interface Props {
-  files: FileEntry[];
+  files: UploadFile[];
   onDelete: (id: string) => void;
+  onCancel: (id: string) => void;
+  onRetry: (id: string) => void;
   onTagChange: (id: string, tag: string) => void;
 }
 
@@ -12,14 +14,21 @@ const HEADERS = [
   "Opciones",
   "Nombre",
   "Tipo MIME",
+  "Estado",
   "Etiquetas",
   "Creado el",
   "Creado por",
 ];
 
-export const FileTable = ({ files, onDelete, onTagChange }: Props) => {
+export const FileTable = ({
+  files,
+  onDelete,
+  onCancel,
+  onRetry,
+  onTagChange,
+}: Props) => {
   return (
-    <div className="hidden md:block bg-white border border-gray-200 rounded-b-md overflow-x-auto">
+    <div className="hidden md:block bg-white border border-gray-200 rounded-md overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b border-gray-200 bg-white">
@@ -40,6 +49,8 @@ export const FileTable = ({ files, onDelete, onTagChange }: Props) => {
               file={file}
               idx={idx}
               onDelete={onDelete}
+              onCancel={onCancel}
+              onRetry={onRetry}
               onTagChange={onTagChange}
             />
           ))}
