@@ -1,3 +1,14 @@
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+
 export default function Home() {
-  return <h1 className="text-3xl font-bold underline">Hola Mundo</h1>;
+  return (
+    <>
+      <div className="flex justify-center items-center h-screen">
+        <Button asChild>
+          <Link href="/upload">Ir a la pagina de upload</Link>
+        </Button>
+      </div>
+    </>
+  );
 }
